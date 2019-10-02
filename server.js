@@ -20,7 +20,7 @@ passport.use(jwtStrategry);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/login',express.static(__dirname + '/View'));  // sends the landing page
+app.use('/',express.static(__dirname + '/View'));  // sends the landing page
 
 app.use('/auth', authRouter);
 app.use('/api',passport.authenticate('jwt', { session: false }), userRouter);
