@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+<body>
+
+<h2>simple login</h2>
+<title>
+  simple login
+</title>
+
+
+<form id="myForm" name="myForm">
+  Username:<br>
+  <input type="text" name="userName">
+  <br>
+  Password:<br>
+  <input type="text" name="password">
+  <br><br>
+  <button type="submit">Login</button> <p id="info"></p>
+</form>
+
+<script>
+
+    window.addEventListener("load", function () {
+      
+      var form = document.getElementById("myForm");
+      
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        sendData();
+      });
+    
+      function sendData(){
+        var form = document.getElementById("myForm");
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "http://localhost:5000/auth/login", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.onreadystatechange = function (Event) {  
+          let info = document.getElementById('info');
+          if (xhttp.readyState === 4) {  
+            info.innerText = "";
+            info.style.color = "";
+              if (xhttp.status === 201 || xhttp.status === 200) {  
+                info.innerText = JSON.parse(xhttp.response).token 
+              } else {  
+                info.innerText = JSON.parse(xhttp.response).error.message 
+                info.style.color = "red"
+              }  
+          }  
+}; 
+        xhttp.send(JSON.stringify({
+                  "user":{
+                      "userName": form[0].value,
+                      "password":form[1].value
+              }
+        }));
+      }
+    
+    });
+    
+    </script>
+</body>
+</html>
