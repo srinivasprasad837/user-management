@@ -17,10 +17,16 @@ passport.use(jwtStrategry);
 // var cors = require('cors')
 // app.use(cors())
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/',express.static(__dirname + '/View'));  // sends the landing page
+
+if (__dirname.slice(-5) === '/view') { // For production
+    app.use('/',express.static(__dirname));
+  } else { // For development
+    app.use('/',express.static(__dirname + '/view')); 
+  }
+
+// app.use('/',express.static(__dirname + '/view'));  // sends the landing page
 
 app.use('/auth', authRouter);
 app.use('/api',passport.authenticate('jwt', { session: false }), userRouter);
