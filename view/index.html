@@ -38,7 +38,7 @@
         var form = document.getElementById("myForm");
         var xhttp = new XMLHttpRequest();
         var baseUrl = window.location.host;
-        xhttp.open("POST", baseUrl + "/auth/login", true);
+        xhttp.open("POST","/auth/login", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.onreadystatechange = function (Event) {  
           let info = document.getElementById('info');
