@@ -31,5 +31,6 @@ if (__dirname.slice(-5) === '/view') { // For production
 app.use('/auth', authRouter);
 app.use('/api',passport.authenticate('jwt', { session: false }), userRouter);
 
+app.get('/dir', (req, res) => res.send(__dirname)); // test runtime dir
 
 app.listen(process.env.PORT || 5000, () => console.log(`App listening on port ${process.env.PORT || 5000}!`));
